@@ -16,12 +16,7 @@ public class UserAdminInitializerApplication {
 
 	@Bean
 	ApplicationRunner applicationRunner(GenerateDefaultAdminService generateDefaultUserAdminService) {
-		return new ApplicationRunner() {
-			@Override
-			public void run(ApplicationArguments args) throws Exception {
-				generateDefaultUserAdminService.generate();
-			}
-		};
+		return args -> generateDefaultUserAdminService.generate();
 	}
 
 }
