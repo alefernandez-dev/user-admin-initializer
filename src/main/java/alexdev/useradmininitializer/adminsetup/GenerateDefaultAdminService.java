@@ -29,13 +29,12 @@ public class GenerateDefaultAdminService {
 
             var username = dataSourceConfig.getUsername();
             var password = dataSourceConfig.getPassword();
-            var role = dataSourceConfig.getRole();
 
             var user = new AppUser();
             user.setId();
             user.setUsername(username);
             user.setPassword(encoder.encode(password));
-            user.setRole(AppUser.Role.valueOf(role));
+            user.setRole(AppUser.Role.ADMIN);
             adminSetupService.create(user);
 
             LOGGER.info("Successfully created the default administrator user. username: {}, password: {}", username, password);
