@@ -7,11 +7,12 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "admin")
 @PropertySource("classpath:default-user.properties")
-public class AdminDataSourceConfig {
+public class DefaultUserAdminPropertiesFileReader implements DefaultUserAdminDataReader {
     private String username;
     private String password;
     private String role;
 
+    @Override
     public String getUsername() {
         return username;
     }
@@ -20,19 +21,12 @@ public class AdminDataSourceConfig {
         this.username = username;
     }
 
+    @Override
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 }

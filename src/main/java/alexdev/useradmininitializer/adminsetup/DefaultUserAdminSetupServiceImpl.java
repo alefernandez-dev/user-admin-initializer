@@ -5,11 +5,11 @@ import alexdev.useradmininitializer.user.AppUserJpaRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AdminAppUserSetupServiceImpl implements AdminUserSetupService<AppUser> {
+public class DefaultUserAdminSetupServiceImpl implements DefaultUserAdminSetupService<AppUser> {
 
     private final AppUserJpaRepository repository;
 
-    public AdminAppUserSetupServiceImpl(AppUserJpaRepository repository) {
+    public DefaultUserAdminSetupServiceImpl(AppUserJpaRepository repository) {
         this.repository = repository;
     }
 

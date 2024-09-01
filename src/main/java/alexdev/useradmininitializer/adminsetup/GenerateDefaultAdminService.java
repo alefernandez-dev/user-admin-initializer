@@ -11,31 +11,33 @@ public class GenerateDefaultAdminService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GenerateDefaultAdminService.class);
 
-    private final AdminDataSourceConfig dataSourceConfig;
-    private final AdminUserSetupService<AppUser> adminSetupService;
+    private final DefaultUserAdminDataReader defaultUserAdminDataReader;
+    private final DefaultUserAdminSetupService<AppUser> defaultUserAdminSetupService;
     private final PasswordEncoder encoder;
 
-    public GenerateDefaultAdminService(AdminDataSourceConfig dataSourceConfig, AdminUserSetupService<AppUser> adminSetupService, PasswordEncoder encoder) {
-        this.dataSourceConfig = dataSourceConfig;
-        this.adminSetupService = adminSetupService;
+    public GenerateDefaultAdminService(DefaultUserAdminDataReader defaultUserAdminDataReader,
+                                       DefaultUserAdminSetupService<AppUser> defaultUserAdminSetupService,
+                                       PasswordEncoder encoder) {
+        this.defaultUserAdminDataReader = defaultUserAdminDataReader;
+        this.defaultUserAdminSetupService = defaultUserAdminSetupService;
         this.encoder = encoder;
     }
 
     public void generate() {
 
-        if(!adminSetupService.exists()) {
+        if(!defaultUserAdminSetupService.exists()) {
 
             LOGGER.info("Generating default administrator user...");
 
-            var username = dataSourceConfig.getUsername();
-            var password = dataSourceConfig.getPassword();
+            var username = defaultUserAdminDataReader.getUsername();
+            var password = defaultUserAdminDataReader.getPassword();
 
             var user = new AppUser();
             user.setId();
             user.setUsername(username);
             user.setPassword(encoder.encode(password));
             user.setRole(AppUser.Role.ADMIN);
-            adminSetupService.create(user);
+            defaultUserAdminSetupService.create(user);
 
             LOGGER.info("Successfully created the default administrator user. username: {}, password: {}", username, password);
             LOGGER.warn("WARNING: Default admin user created. Change the default credentials immediately!");
