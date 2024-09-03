@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 public class DefaultUserAdminPropertiesFileReader implements DefaultUserAdminDataReader {
     private String username;
     private String password;
-    private String role;
 
     @Override
     public String getUsername() {

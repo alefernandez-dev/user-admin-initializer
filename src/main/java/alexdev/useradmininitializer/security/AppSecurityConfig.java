@@ -42,8 +42,9 @@ public class AppSecurityConfig {
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .httpBasic(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/user/*", HttpMethod.POST.name(), HttpMethod.DELETE.name()).hasRole("ADMIN")
-                        .requestMatchers("/user", HttpMethod.GET.name()).hasAnyRole("ADMIN", "USER")
+                        .requestMatchers(HttpMethod.POST, "/user/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/user/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/user").hasAnyRole("ADMIN", "USER")
                         .anyRequest().authenticated());
 
         return httpSecurity.build();
